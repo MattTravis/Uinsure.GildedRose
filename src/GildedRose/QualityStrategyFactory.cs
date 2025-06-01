@@ -2,7 +2,7 @@
 
 public static class QualityStrategyFactory
 {
-    public static QualityStrategy Create(string itemName)
+    public static QualityStrategy Create(string itemName, int sellIn)
     {
         return itemName switch
         {
@@ -10,7 +10,12 @@ public static class QualityStrategyFactory
             "Aged Brie" => new QualityStrategy(isEnhancing: true),
             "Elixir of the Mongoose" => new QualityStrategy(),
             "Sulfuras, Hand of Ragnaros" => new QualityStrategy(isArtifact: true),
-            "Backstage passes to a TAFKAL80ETC concert" => new QualityStrategy(isEnhancing: true),
+            "Backstage passes to a TAFKAL80ETC concert" => sellIn switch
+            {
+                < 6 => new QualityStrategy(3, isEnhancing: true),
+                < 11 => new QualityStrategy(2, isEnhancing: true),
+                _ => new QualityStrategy(isEnhancing: true)
+            },
             "Conjured Mana Cake" => new QualityStrategy(2),
             _ => throw new ArgumentException($"Unknown item '{itemName}'", nameof(itemName))
         };
