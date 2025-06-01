@@ -1,6 +1,6 @@
 ﻿namespace GildedRoseKata;
 
-public class QualityStrategy(bool isEnhancing = false, bool isArtifact = false)
+public class QualityStrategy(int baseRateMultiplier = 1, bool isEnhancing = false, bool isArtifact = false)
 {
     private const int BaseRate = -1;
 
@@ -13,6 +13,6 @@ public class QualityStrategy(bool isEnhancing = false, bool isArtifact = false)
             return;
         }
 
-        item.Quality += BaseRate * _isEnhancingModifier;
+        item.Quality += BaseRate * _isEnhancingModifier * baseRateMultiplier;
     }
 }
