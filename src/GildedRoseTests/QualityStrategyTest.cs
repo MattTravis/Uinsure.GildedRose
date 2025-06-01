@@ -68,4 +68,20 @@ public class QualityStrategyTest
         strategy.Apply(item);
         Assert.Equal(initialQuality, item.Quality);
     }
+
+    [Theory]
+    [InlineData("+5 Dexterity Vest", 1, 0)]
+    [InlineData("Aged Brie", 49, 50)]
+    [InlineData("Elixir of the Mongoose", 1, 0)]
+    [InlineData("Sulfuras, Hand of Ragnaros", 80, 80)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 49, 50, 1)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 49, 0)]
+    [InlineData("Conjured Mana Cake", 1, 0)]
+    public void Apply_GivenItem_WhenQualityIsNearLimit_ThenQualityLimitIsNotExceeded(string itemName, int initialQuality, int expectedQuality, int sellIn = 0)
+    {
+        Item item = new() { Name = itemName, SellIn = sellIn, Quality = initialQuality };
+        var strategy = QualityStrategyFactory.Create(item.Name, item.SellIn);
+        strategy.Apply(item);
+        Assert.Equal(expectedQuality, item.Quality);
+    }
 }
