@@ -8,7 +8,14 @@ public class GildedRose
         this.Items = Items;
     }
 
-    public void UpdateQuality()
+    public void UpdateItems()
+    {
+        UpdateQualityPreSellIn();
+        UpdateSellIn();
+        UpdateQualityPostSellIn();
+    }
+
+    private void UpdateQualityPreSellIn()
     {
         foreach (var item in Items)
         {
@@ -56,12 +63,24 @@ public class GildedRose
                     }
                 }
             }
+        }
+    }
 
+    private void UpdateSellIn()
+    {
+        foreach (var item in Items)
+        {
             if (item.Name != "Sulfuras, Hand of Ragnaros")
             {
                 item.SellIn -= 1;
             }
+        }
+    }
 
+    private void UpdateQualityPostSellIn()
+    {
+        foreach (var item in Items)
+        {
             if (item.SellIn < 0)
             {
                 if (item.Name == "Conjured Mana Cake")

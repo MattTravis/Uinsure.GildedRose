@@ -15,12 +15,12 @@ public class GildedRoseTest
     [InlineData("Backstage passes to a TAFKAL80ETC concert", 3, 5)]
     [InlineData("Backstage passes to a TAFKAL80ETC concert", 3, 1)]
     [InlineData("Conjured Mana Cake", -2)]
-    public void UpdateQuality_GivenItem_WhenSellByNotElapsed_ThenAltersQualityByRate(string itemName, int rate, int sellIn = 15)
+    public void UpdateItems_GivenItem_WhenSellByNotElapsed_ThenAltersQualityByRate(string itemName, int rate, int sellIn = 15)
     {
         const int InitialQuality = 5;
         List<Item> items = [new() { Name = itemName, SellIn = sellIn, Quality = InitialQuality }];
         GildedRose app = new(items);
-        app.UpdateQuality();
+        app.UpdateItems();
         Assert.Single(items);
         Assert.Equal(itemName, items[0].Name);
         Assert.Equal(InitialQuality + rate, items[0].Quality);
@@ -37,24 +37,24 @@ public class GildedRoseTest
     // Conjured Item Degradation Rate = -2 --> 2x Base
     // Expired Conjured Item Degradation Rate = -4 --> 2x Expired plus 2x Conjured 
     [InlineData("Conjured Mana Cake", -4)]
-    public void UpdateQuality_GivenItem_WhenSellByElapsed_ThenAltersQualityByRate(string itemName, int rate)
+    public void UpdateItems_GivenItem_WhenSellByElapsed_ThenAltersQualityByRate(string itemName, int rate)
     {
         const int InitialQuality = 5;
         List<Item> items = [new() { Name = itemName, SellIn = 0, Quality = InitialQuality }];
         GildedRose app = new(items);
-        app.UpdateQuality();
+        app.UpdateItems();
         Assert.Single(items);
         Assert.Equal(itemName, items[0].Name);
         Assert.Equal(InitialQuality + rate, items[0].Quality);
     }
 
     [Fact]
-    public void UpdateQuality_GivenBackstagePass_WhenSellByElapsed_ThenQualityIsZero()
+    public void UpdateItems_GivenBackstagePass_WhenSellByElapsed_ThenQualityIsZero()
     {
         const string ItemName = "Backstage passes to a TAFKAL80ETC concert";
         List<Item> items = [new() { Name = ItemName, SellIn = 0, Quality = 5 }];
         GildedRose app = new(items);
-        app.UpdateQuality();
+        app.UpdateItems();
         Assert.Single(items);
         Assert.Equal(ItemName, items[0].Name);
         Assert.Equal(0, items[0].Quality);
@@ -67,12 +67,12 @@ public class GildedRoseTest
     [InlineData("Sulfuras, Hand of Ragnaros", 0)]
     [InlineData("Backstage passes to a TAFKAL80ETC concert")]
     [InlineData("Conjured Mana Cake")]
-    public void UpdateQuality_GivenItem_ThenAltersSellInByRate(string itemName, int rate = -1)
+    public void UpdateItems_GivenItem_ThenAltersSellInByRate(string itemName, int rate = -1)
     {
         const int InitialSellIn = 5;
         List<Item> items = [new() { Name = itemName, SellIn = 5, Quality = 1 }];
         GildedRose app = new(items);
-        app.UpdateQuality();
+        app.UpdateItems();
         Assert.Single(items);
         Assert.Equal(itemName, items[0].Name);
         Assert.Equal(InitialSellIn + rate, items[0].SellIn);
@@ -85,11 +85,11 @@ public class GildedRoseTest
     [InlineData("Sulfuras, Hand of Ragnaros", 80)]
     [InlineData("Backstage passes to a TAFKAL80ETC concert", 50)]
     [InlineData("Conjured Mana Cake", 0)]
-    public void UpdateQuality_GivenItem_WhenQualityIsAtLimit_ThenQualityLimitIsNotExceeded(string itemName, int initialQuality)
+    public void UpdateItems_GivenItem_WhenQualityIsAtLimit_ThenQualityLimitIsNotExceeded(string itemName, int initialQuality)
     {
         List<Item> items = [new() { Name = itemName, SellIn = 15, Quality = initialQuality }];
         GildedRose app = new(items);
-        app.UpdateQuality();
+        app.UpdateItems();
         Assert.Single(items);
         Assert.Equal(itemName, items[0].Name);
         Assert.Equal(initialQuality, items[0].Quality);
@@ -103,11 +103,11 @@ public class GildedRoseTest
     [InlineData("Backstage passes to a TAFKAL80ETC concert", 49, 50, 1)]
     [InlineData("Backstage passes to a TAFKAL80ETC concert", 49, 0)]
     [InlineData("Conjured Mana Cake", 1, 0)]
-    public void UpdateQuality_GivenItem_WhenQualityIsNearLimit_ThenQualityLimitIsNotExceeded(string itemName, int initialQuality, int expectedQuality, int sellIn = 0)
+    public void UpdateItems_GivenItem_WhenQualityIsNearLimit_ThenQualityLimitIsNotExceeded(string itemName, int initialQuality, int expectedQuality, int sellIn = 0)
     {
         List<Item> items = [new() { Name = itemName, SellIn = sellIn, Quality = initialQuality }];
         GildedRose app = new(items);
-        app.UpdateQuality();
+        app.UpdateItems();
         Assert.Single(items);
         Assert.Equal(itemName, items[0].Name);
         Assert.Equal(expectedQuality, items[0].Quality);
