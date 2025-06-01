@@ -12,9 +12,9 @@ public static class QualityStrategyFactory
             "Sulfuras, Hand of Ragnaros" => new QualityStrategy(isArtifact: true),
             "Backstage passes to a TAFKAL80ETC concert" => sellIn switch
             {
-                < 6 => new QualityStrategy(3, isEnhancing: true),
-                < 11 => new QualityStrategy(2, isEnhancing: true),
-                _ => new QualityStrategy(isEnhancing: true)
+                < 6 => new QualityStrategy(3, isEnhancing: true, resetQualityOnExpire: true),
+                < 11 => new QualityStrategy(2, isEnhancing: true, resetQualityOnExpire: true),
+                _ => new QualityStrategy(isEnhancing: true, resetQualityOnExpire: true)
             },
             "Conjured Mana Cake" => new QualityStrategy(2),
             _ => throw new ArgumentException($"Unknown item '{itemName}'", nameof(itemName))

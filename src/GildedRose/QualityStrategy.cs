@@ -1,6 +1,7 @@
 ﻿namespace GildedRoseKata;
 
-public class QualityStrategy(int baseRateMultiplier = 1, int expiredMultiplier = 2, bool isEnhancing = false, bool isArtifact = false)
+public class QualityStrategy(int baseRateMultiplier = 1, int expiredMultiplier = 2, bool isEnhancing = false, bool isArtifact = false,
+    bool resetQualityOnExpire = false)
 {
     private const int BaseRate = -1;
     
@@ -17,6 +18,12 @@ public class QualityStrategy(int baseRateMultiplier = 1, int expiredMultiplier =
 
         if (item.SellIn <= 0)
         {
+            if (resetQualityOnExpire)
+            {
+                item.Quality = 0;
+                return;
+            }
+
             qualityDelta *= expiredMultiplier;
         }
 

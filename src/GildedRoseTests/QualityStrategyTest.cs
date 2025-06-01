@@ -43,4 +43,14 @@ public class QualityStrategyTest
         strategy.Apply(item);
         Assert.Equal(InitialQuality + rate, item.Quality);
     }
+
+    [Fact]
+    public void Apply_GivenBackstagePass_WhenSellByElapsed_ThenQualityIsZero()
+    {
+        const string ItemName = "Backstage passes to a TAFKAL80ETC concert";
+        Item item = new() { Name = ItemName, SellIn = 0, Quality = 50 };
+        var strategy = QualityStrategyFactory.Create(item.Name, item.SellIn);
+        strategy.Apply(item);
+        Assert.Equal(0, item.Quality);
+    }
 }
