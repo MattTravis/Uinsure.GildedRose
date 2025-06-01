@@ -1,18 +1,32 @@
 ﻿namespace GildedRoseKata.QualityStrategy;
 
-public abstract class QualityStrategyBase(int baseRateMultiplier = 1, int expiredMultiplier = 2, bool isEnhancing = false) : IQualityStrategy
+public abstract class QualityStrategyBase : IQualityStrategy
 {
-    private const int BaseRate = -1;
+    private const int ExpiredMultiplier = 2;
 
-    private readonly int _isEnhancingModifier = isEnhancing ? -1 : 1;
+    private static int GetBaseRate(Item item)
+    {
+        return item.Name switch
+        {
+            "Backstage passes to a TAFKAL80ETC concert" => item.SellIn switch
+            {
+                < 6 => 3,
+                < 11 => 2,
+                _ => 1
+            },
+            "Conjured Mana Cake" => -2,
+            "Aged Brie" => 1,
+            _ => -1
+        };
+    }
 
     public virtual void Apply(Item item)
     {
-        var qualityDelta = BaseRate * _isEnhancingModifier * baseRateMultiplier;
+        var qualityDelta = GetBaseRate(item);
 
         if (item.SellIn <= 0)
         {
-            qualityDelta *= expiredMultiplier;
+            qualityDelta *= ExpiredMultiplier;
         }
 
         item.Quality = Math.Clamp(item.Quality + qualityDelta, 0, 50);

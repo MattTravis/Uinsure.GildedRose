@@ -14,7 +14,7 @@ public class GildedRose
     {
         foreach (var item in Items)
         {
-            var strategy = QualityStrategyFactory.Create(item.Name, item.SellIn);
+            var strategy = QualityStrategyFactory.Create(item.Name);
             strategy.Apply(item);
 
             UpdateSellIn(item);

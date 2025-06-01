@@ -20,7 +20,7 @@ public class QualityStrategyTest
     {
         const int InitialQuality = 5;
         Item item = new() { Name = itemName, SellIn = sellIn, Quality = InitialQuality };
-        var strategy = QualityStrategyFactory.Create(item.Name, item.SellIn);
+        var strategy = QualityStrategyFactory.Create(item.Name);
         strategy.Apply(item);
         Assert.Equal(InitialQuality + rate, item.Quality);
     }
@@ -40,7 +40,7 @@ public class QualityStrategyTest
     {
         const int InitialQuality = 5;
         Item item = new() { Name = itemName, SellIn = 0, Quality = InitialQuality };
-        var strategy = QualityStrategyFactory.Create(item.Name, item.SellIn);
+        var strategy = QualityStrategyFactory.Create(item.Name);
         strategy.Apply(item);
         Assert.Equal(InitialQuality + rate, item.Quality);
     }
@@ -50,7 +50,7 @@ public class QualityStrategyTest
     {
         const string ItemName = "Backstage passes to a TAFKAL80ETC concert";
         Item item = new() { Name = ItemName, SellIn = 0, Quality = 50 };
-        var strategy = QualityStrategyFactory.Create(item.Name, item.SellIn);
+        var strategy = QualityStrategyFactory.Create(item.Name);
         strategy.Apply(item);
         Assert.Equal(0, item.Quality);
     }
@@ -65,7 +65,7 @@ public class QualityStrategyTest
     public void Apply_GivenItem_WhenQualityIsAtLimit_ThenQualityLimitIsNotExceeded(string itemName, int initialQuality)
     {
         Item item = new() { Name = itemName, SellIn = 15, Quality = initialQuality };
-        var strategy = QualityStrategyFactory.Create(item.Name, item.SellIn);
+        var strategy = QualityStrategyFactory.Create(item.Name);
         strategy.Apply(item);
         Assert.Equal(initialQuality, item.Quality);
     }
@@ -81,7 +81,7 @@ public class QualityStrategyTest
     public void Apply_GivenItem_WhenQualityIsNearLimit_ThenQualityLimitIsNotExceeded(string itemName, int initialQuality, int expectedQuality, int sellIn = 0)
     {
         Item item = new() { Name = itemName, SellIn = sellIn, Quality = initialQuality };
-        var strategy = QualityStrategyFactory.Create(item.Name, item.SellIn);
+        var strategy = QualityStrategyFactory.Create(item.Name);
         strategy.Apply(item);
         Assert.Equal(expectedQuality, item.Quality);
     }
