@@ -1,4 +1,5 @@
-﻿using GildedRoseKata;
+﻿using GildedRoseKata.QualityStrategy;
+using GildedRoseKata;
 
 namespace GildedRoseTests;
 
