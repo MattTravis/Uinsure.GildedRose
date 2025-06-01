@@ -6,9 +6,10 @@ public class QualityStrategyTest
 {
     [Theory]
     [InlineData("+5 Dexterity Vest", -1)]
-    //[InlineData("Aged Brie", 1)]
+    [InlineData("Aged Brie", 1)]
     [InlineData("Elixir of the Mongoose", -1)]
     [InlineData("Sulfuras, Hand of Ragnaros", 0)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 1, 11)]
     //[InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 10)]
     //[InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 6)]
     //[InlineData("Backstage passes to a TAFKAL80ETC concert", 3, 5)]
