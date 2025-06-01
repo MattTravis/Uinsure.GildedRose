@@ -31,6 +31,11 @@ public class GildedRoseTest
     [InlineData("Aged Brie", 2)]
     [InlineData("Elixir of the Mongoose", -2)]
     [InlineData("Sulfuras, Hand of Ragnaros", 0)]
+    // Assumption: 
+    // Base Item Degradation Rate = -1
+    // Expired Item Degradation Rate = -2 --> 2x Base
+    // Conjured Item Degradation Rate = -2 --> 2x Base
+    // Expired Conjured Item Degradation Rate = -4 --> 2x Expired plus 2x Conjured 
     [InlineData("Conjured Mana Cake", -4)]
     public void UpdateQuality_GivenItem_WhenSellByElapsed_ThenAltersQualityByRate(string itemName, int rate)
     {
