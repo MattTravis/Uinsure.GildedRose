@@ -44,9 +44,9 @@ public class Program
         {
             Console.WriteLine("-------- day " + i + " --------");
             Console.WriteLine("name, sellIn, quality");
-            for (var j = 0; j < Items.Count; j++)
+            foreach (var t in Items)
             {
-                System.Console.WriteLine(Items[j].Name + ", " + Items[j].SellIn + ", " + Items[j].Quality);
+                Console.WriteLine(t.Name + ", " + t.SellIn + ", " + t.Quality);
             }
             Console.WriteLine("");
             app.UpdateItems();

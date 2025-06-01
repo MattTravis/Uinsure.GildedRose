@@ -15,6 +15,6 @@ public class ApprovalTest
         Program.Main(["30"]);
         var output = fakeOutput.ToString();
 
-        return Verifier.Verify(output);
+        return Verify(output);
     }
 }
