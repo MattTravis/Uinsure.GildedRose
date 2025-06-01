@@ -1,7 +1,7 @@
 ﻿namespace GildedRoseKata;
 
 public class QualityStrategy(int baseRateMultiplier = 1, int expiredMultiplier = 2, bool isEnhancing = false, bool isArtifact = false,
-    bool resetQualityOnExpire = false)
+    bool resetQualityOnExpire = false, int maxQuality = 50)
 {
     private const int BaseRate = -1;
     
@@ -27,6 +27,6 @@ public class QualityStrategy(int baseRateMultiplier = 1, int expiredMultiplier =
             qualityDelta *= expiredMultiplier;
         }
 
-        item.Quality += qualityDelta;
+        item.Quality = Math.Clamp(item.Quality + qualityDelta, 0, maxQuality);
     }
 }

@@ -9,7 +9,7 @@ public static class QualityStrategyFactory
             "+5 Dexterity Vest" => new QualityStrategy(),
             "Aged Brie" => new QualityStrategy(isEnhancing: true),
             "Elixir of the Mongoose" => new QualityStrategy(),
-            "Sulfuras, Hand of Ragnaros" => new QualityStrategy(isArtifact: true),
+            "Sulfuras, Hand of Ragnaros" => new QualityStrategy(isArtifact: true, maxQuality:80),
             "Backstage passes to a TAFKAL80ETC concert" => sellIn switch
             {
                 < 6 => new QualityStrategy(3, isEnhancing: true, resetQualityOnExpire: true),
