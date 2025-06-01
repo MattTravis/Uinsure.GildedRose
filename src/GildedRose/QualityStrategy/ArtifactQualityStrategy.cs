@@ -1,8 +1,8 @@
 ﻿namespace GildedRoseKata.QualityStrategy;
 
-public class ArtifactQualityStrategy : QualityStrategyBase
+public class ArtifactQualityStrategy : IQualityStrategy
 {
-    public override void Apply(Item item)
+    public void Apply(Item item)
     {
     }
 }

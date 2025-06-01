@@ -1,8 +1,8 @@
 ﻿namespace GildedRoseKata.QualityStrategy;
 
-public class ZeroOnExpiryQualityStrategy : QualityStrategyBase
+public class ZeroOnExpiryQualityStrategy(IQualityStrategy nextStrategy) : IQualityStrategy
 {
-    public override void Apply(Item item)
+    public void Apply(Item item)
     {
         if (item.SellIn <= 0)
         {
@@ -10,7 +10,7 @@ public class ZeroOnExpiryQualityStrategy : QualityStrategyBase
         }
         else
         {
-            base.Apply(item);
+            nextStrategy.Apply(item);
         }
     }
 }
