@@ -54,3 +54,24 @@ This is a testing approach which is very useful when refactoring legacy code. Be
 It's basically the same idea as "assertEquals(expected, actual)" in a unit test, except the text you are comparing is typically much longer, and the "expected" value is saved from actual output, rather than being defined in advance.
 
 Typically a piece of legacy code may not produce suitable textual output from the start, so you may need to modify it before you can write your first text-based approval test. This has already been setup and the initial "Golden Master" has been provided in `ApprovalTest.ThirtyDays.verified.txt`
+
+
+## Notes
+My general approach to this kata was to utilise TDD methodology to bring in a safety-net prior to starting large scale refactoring efforts. 
+These tests, combined with the existing Text-Based Approval testing, helped to ensure that the refactoring was correct and successful.
+
+On reflection - the current GildedRoseTest file is probably redundant now due to the Text-Based Approval testing combined with the QualityStrategy tests.
+
+Once the basic tests were in place I implemented the new requirements around the Conjured Mana Cake item. 
+I made an assumption here that such an item would hit quadruple quality degradation when expired due to 2x from Conjured item, and 2x from Expired item.
+
+Next I moved on to SOLID principles, and attempted to resolve the obvious Single Responsibility Principle violation in UpdateQuality (It updates both Quality and SellIn)
+by splitting up the method. This resulted in some ugly code smells due to iterating through the Items collection multiple times.
+
+I then chose to apply the Strategy Pattern, as it seemed to fit nicely with the discrete item rule sets. 
+I made an initial pass at implementing this and then iteratively refined the implementation until I was happy, reducing complexity, applying SOLID, and finally replacing inheritance with composition.
+
+Along the way I periodically performed some mundane clean up to the codebase - these might have been better left out to reduce the number of commits.
+I prefer to keep them in to preserve the story of the codebase and the journey I took with it. 
+
+In the end we now have a cleaner, more maintainable and extensible codebase, with the required changes implemented and restrictions observed and obeyed. 
